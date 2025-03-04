@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>coming soon</title>
     <style>
+        
         body {
             background-color: black;
             color: white;
@@ -16,72 +18,108 @@
             margin: 0;
             font-family: 'Georgia', serif;
             text-align: center;
-            overflow: hidden; 
+            overflow: hidden;
+            position: relative;
+            /* Add this */
         }
+
+        /* Add these new styles */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        /* Add this to ensure content stays visible */
+        #quoteContainer,
+        .footer {
+            position: relative;
+            z-index: 1;
+        }
+
         .quote {
             font-size: 2.5em;
             font-style: italic;
             margin-bottom: 1em;
         }
+
         .author {
             font-size: 1.5em;
             margin-bottom: 1em;
-            color:#e6e6e6;
-            font-style:italic;
-        }
-        .footer {
-            font-size: 1em;
-            position: absolute;
-            bottom: 10px;
-            color:#c2c2c2;
-            font-style:italic;
-            
+            color: #e6e6e6;
+            font-style: italic;
         }
 
-        a{
+        .footer {
+            font-size: 1em;
+            font-weight: bold;
+            position: absolute;
+            bottom: 10px;
+            color: #c2c2c2;
+            font-style: italic;
+
+        }
+
+        a {
             color: inherit;
             text-decoration: none;
         }
+
         /* DEMO-SPECIFIC STYLES */
         .quote {
             font-family: SRegular;
-            color:#0000;
+            font-weight: bold;
+            color: #0000;
             background:
-                linear-gradient(-90deg,#ffffff 5px,#0000 0) 10px 0,
+                linear-gradient(-90deg, #ffffff 5px, #0000 0) 10px 0,
                 linear-gradient(#ffffff 0 0) 0 0;
-            background-size:calc(var(--n)*1ch) 200%;
-            -webkit-background-clip:padding-box,text;
-            background-clip:padding-box,text;
-            background-repeat:no-repeat;
-            animation: 
-                b .7s infinite steps(1),   
+            background-size: calc(var(--n)*1ch) 200%;
+            -webkit-background-clip: padding-box, text;
+            background-clip: padding-box, text;
+            background-repeat: no-repeat;
+            animation:
+                b .7s infinite steps(1),
                 t calc(var(--n)*.05s) steps(var(--n)) forwards;
+        }
+
+        @keyframes t {
+            from {
+                background-size: 0 200%
             }
-            @keyframes t{
-            from {background-size:0 200%}
+        }
+
+        @keyframes b {
+            50% {
+                background-position: 0 -100%, 0 0
             }
-            @keyframes b{
-            50% {background-position:0 -100%,0 0}
         }
 
         @font-face {
             font-family: SRegular;
             src: url(ibm-plex-mono.light.ttf);
         }
-
-
     </style>
 </head>
+
 <body>
+    <!-- Add this video element right after body tag -->
+    <video autoplay muted loop class="video-background">
+        <source src="video.webm" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
     <div id="quoteContainer">
         <span class="quote" id="quote" style="--n:70"></span>
         <p class="author" id="author"></p>
     </div>
-    <p class="footer"><a href="https://www.instagram.com/16maniatic" target="_blank" >16maniatic</a></p>
+    <p class="footer"><a href="https://www.instagram.com/16maniatic" target="_blank">16maniatic</a></p>
     <script>
         const quotes = [
-            { quote: "A veces hay que decir amai, y seguir adelante.", author: "Amador Rivas." },
-            { quote: "Para tomarse un yogurt antes hay que abrir la tapa.", author: "Máximo Angulo." },
+            { quote: "Coming Soon..." },
         ];
 
         function getRandomQuote() {
@@ -89,16 +127,17 @@
             return quotes[randomIndex];
         }
 
-        window.onload = function() {
+        window.onload = function () {
             const randomQuote = getRandomQuote();
             document.getElementById('quote').innerText = `"${randomQuote.quote}"`;
-            document.getElementById('author').innerText = `- ${randomQuote.author}`;
+
             const quoteElement = document.getElementById('quote');
             const charCount = randomQuote.quote.length;
             console.log(charCount);
-            quoteElement.style.setProperty('--n', (charCount+2));
+            quoteElement.style.setProperty('--n', (charCount + 2));
         };
-        
+
     </script>
 </body>
+
 </html>
